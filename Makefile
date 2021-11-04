@@ -1,19 +1,18 @@
 
 VERSION		:= 3.5.0
 
-sbindir		?= /sbin
+sbindir		?= /usr/bin
 sysconfdir	?= /etc/mkinitfs
 datarootdir	?= /usr/share
 datadir		?= $(datarootdir)/mkinitfs
 mandir		?= $(datarootdir)/man
 
-SBIN_FILES	:= mkinitfs bootchartd nlplug-findfs
+SBIN_FILES	:= mkinitfs
 SHARE_FILES	:= initramfs-init fstab passwd group
 CONF_FILES	:= mkinitfs.conf \
 		features.d/ata.modules \
 		features.d/base.files \
 		features.d/base.modules \
-		features.d/bootchart.files \
 		features.d/btrfs.files \
 		features.d/btrfs.modules \
 		features.d/cdrom.modules \
@@ -60,19 +59,11 @@ CONF_FILES	:= mkinitfs.conf \
 		features.d/dhcp.files \
 		features.d/dhcp.modules \
 		features.d/https.files
-MAN_FILES       := mkinitfs.1 mkinitfs-bootparam.7 nlplug-findfs.1
 
-SCRIPTS		:= mkinitfs bootchartd initramfs-init
+SCRIPTS		:= mkinitfs initramfs-init
 IN_FILES	:= $(addsuffix .in,$(SCRIPTS) $(MAN_FILES))
 
-GIT_REV := $(shell test -d .git && git describe || echo exported)
-ifneq ($(GIT_REV), exported)
-FULL_VERSION    := $(patsubst $(PACKAGE)-%,%,$(GIT_REV))
-FULL_VERSION    := $(patsubst v%,%,$(FULL_VERSION))
-else
 FULL_VERSION    := $(VERSION)
-endif
-
 
 DISTFILES	:= $(IN_FILES) $(CONF_FILES) Makefile
 
