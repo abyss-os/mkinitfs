@@ -1,11 +1,9 @@
-
-VERSION		:= 3.5.0
+VERSION		:= 1.0.0
 
 sbindir		?= /usr/bin
 sysconfdir	?= /etc/mkinitfs
 datarootdir	?= /usr/share
 datadir		?= $(datarootdir)/mkinitfs
-mandir		?= $(datarootdir)/man
 
 SBIN_FILES	:= mkinitfs
 SHARE_FILES	:= initramfs-init fstab passwd group
@@ -61,7 +59,7 @@ CONF_FILES	:= mkinitfs.conf \
 		features.d/https.files
 
 SCRIPTS		:= mkinitfs initramfs-init
-IN_FILES	:= $(addsuffix .in,$(SCRIPTS) $(MAN_FILES))
+IN_FILES	:= $(addsuffix .in,$(SCRIPTS))
 
 FULL_VERSION    := $(VERSION)
 
@@ -79,10 +77,10 @@ DEFAULT_FEATURES += qeth dasd_mod zfcp
 endif
 
 
-all:	$(SBIN_FILES) $(SCRIPTS) $(CONF_FILES) $(MAN_FILES)
+all:	$(SBIN_FILES) $(SCRIPTS) $(CONF_FILES)
 
 clean:
-	rm -f $(SCRIPTS) $(MAN_FILES) mkinitfs.conf
+	rm -f $(SCRIPTS) mkinitfs.conf
 
 help:
 	@echo mkinitfs $(VERSION)
@@ -121,9 +119,6 @@ install: $(SBIN_FILES) $(SHARE_FILES) $(CONF_FILES)
 	done
 	for i in $(SHARE_FILES); do \
 		$(INSTALL) -D $$i $(DESTDIR)/$(datadir)/$$i;\
-	done
-	for i in $(MAN_FILES); do \
-		$(INSTALL) -D $$i $(DESTDIR)$(mandir)/man$${i##*.}/$$i;\
 	done
 
 mkinitfs.conf:
