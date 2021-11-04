@@ -6,7 +6,7 @@ datarootdir	?= /usr/share
 datadir		?= $(datarootdir)/mkinitfs
 
 SBIN_FILES	:= mkinitfs
-SHARE_FILES	:= initramfs-init fstab passwd group
+SHARE_FILES	:= initramfs-init passwd group
 CONF_FILES	:= mkinitfs.conf \
 		features.d/ata.modules \
 		features.d/base.files \
